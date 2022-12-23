@@ -32,3 +32,4 @@ df_dic = read_data('data/all_stats')
 # QB_2021_13_all_stats = df_dic['QB_2021_13_all_stats']
 
 
+df = pd.read_csv('data/all_stats.csv')

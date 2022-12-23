@@ -39,7 +39,7 @@ get_data <- function(years) {
       }
       for (week in weeks) {
         df <- fp_stats(pos, season = year, start_week = week, end_week = week, scoring = "ppr")
-        write.csv(df, str_glue("data/{pos}_{year}_{week}_all_stats.csv"), row.names=TRUE)
+        write.table(df, str_glue("data/all_stats/all_stats.csv"), append=TRUE, sep = ',', quote = FALSE, col.names = FALSE, row.names = FALSE)
       }
     }
   }
@@ -48,6 +48,9 @@ get_data <- function(years) {
 years = list('2016', '2017', '2018', '2019', '2020', '2021', '2022')
 
 get_data(years)
+
+
+
 
 ```
 
