@@ -25,11 +25,7 @@ def read_data(folder):
     return df_dic
         
 
-df_dic = read_data('data/all_stats')
-
-# DST_2016_1_all_stats = df_dic['DST_2016_1_all_stats']
-
-# QB_2021_13_all_stats = df_dic['QB_2021_13_all_stats']
+misc_df_dic = read_data('data/misc/')
 
 
-df = pd.read_csv('data/all_stats.csv')
+all_stats_df = pd.read_csv('data/all_stats/all_stats.csv')
