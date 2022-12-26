@@ -32,3 +32,7 @@ snap_df = pd.DataFrame(np.repeat(obs.values[:1], len(obs), axis=0), columns=obs.
 snap_df['delta'] = temp['delta'].values
 
 snap_df['pred_fpts'] = temp['pred_fpts'].values
+
+obs_new = obs.tail(-1)
+
+# repeat the above
