@@ -1813,59 +1813,76 @@ str_glue(&#39;{x}&#39;)</code></pre>
 &lt;!-- rnb-chunk-begin --&gt;
 
 
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIFRoaXMgY29kZSBpcyB1c2VkIHRvIGV4dHJhY3QgdGhlIHdlZWtseSBkYXRhIGZvciBlYWNoIG5mbCBzZWFzb25cbiMgVGhlIG90aGVyIGRhdGEgaXMgZG93bmxvYWRlZCBtYW51YWxseVxuXG5saWJyYXJ5KGZhbnRhc3lwcm9zKVxubGlicmFyeShzdHJpbmdyKVxuXG5nZXRfZGF0YSA8LSBmdW5jdGlvbih5ZWFycykge1xuICBcbiAgcG9zaXRpb25zIDwtIGxpc3QoXCJRQlwiLCBcIlJCXCIsIFwiV1JcIiwgXCJURVwiLCBcIktcIiwgXCJEU1RcIilcbiAgd2Vla3MgPC0gMToxN1xuICAgIFxuICBmb3IgKHllYXIgaW4geWVhcnMpe1xuICAgIGZvciAocG9zIGluIHBvc2l0aW9ucykge1xuICAgICAgaWYgKHllYXIgPj0gMjAyMSl7XG4gICAgICAgIHdlZWtzIDwtIDE6MThcbiAgICAgIH1cbiAgICAgIGZvciAod2VlayBpbiB3ZWVrcykge1xuICAgICAgICBkZiA8LSBmcF9zdGF0cyhwb3MsIHNlYXNvbiA9IHllYXIsIHN0YXJ0X3dlZWsgPSB3ZWVrLCBlbmRfd2VlayA9IHdlZWssIHNjb3JpbmcgPSBcInBwclwiKVxuICAgICAgICB3cml0ZS50YWJsZShkZiwgc3RyX2dsdWUoXCJkYXRhL2FsbF9zdGF0cy9hbGxfc3RhdHMuY3N2XCIpLCBhcHBlbmQ9VFJVRSwgc2VwID0gJywnLCBxdW90ZSA9IEZBTFNFLCBjb2wubmFtZXMgPSBGQUxTRSwgcm93Lm5hbWVzID0gRkFMU0UpXG4gICAgICB9XG4gICAgfVxuICB9XG59XG5cbnllYXJzID0gbGlzdCgnMjAxNicsICcyMDE3JywgJzIwMTgnLCAnMjAxOScsICcyMDIwJywgJzIwMjEnLCAnMjAyMicpXG5cbmdldF9kYXRhKHllYXJzKVxubGlicmFyeShyZWFkcilcbmFsbF9zdGF0cyA8LSByZWFkX2NzdihcImRhdGEvYWxsX3N0YXRzL2FsbF9zdGF0cy5jc3ZcIilcbmBgYCJ9 --&gt;
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUaGlzIGNvZGUgaXMgdXNlZCB0byBleHRyYWN0IHRoZSB3ZWVrbHkgZGF0YSBmb3IgZWFjaCBuZmwgc2Vhc29uXG4jIFRoZSBvdGhlciBkYXRhIGlzIGRvd25sb2FkZWQgbWFudWFsbHlcblxubGlicmFyeShmYW50YXN5cHJvcylcbmxpYnJhcnkoc3RyaW5ncilcbiAgXG5wb3NpdGlvbnMgPC0gbGlzdChcIlFCXCIsIFwiUkJcIiwgXCJXUlwiLCBcIlRFXCIsIFwiS1wiLCBcIkRTVFwiKVxud2Vla3MgPC0gMToxN1xuXG5gYGAifQ== --&gt;
 
 ```r
-
 # This code is used to extract the weekly data for each nfl season
 # The other data is downloaded manually
 
 library(fantasypros)
 library(stringr)
-
-get_data &lt;- function(years) {
   
-  positions &lt;- list(&quot;QB&quot;, &quot;RB&quot;, &quot;WR&quot;, &quot;TE&quot;, &quot;K&quot;, &quot;DST&quot;)
-  weeks &lt;- 1:17
-    
-  for (year in years){
-    for (pos in positions) {
-      if (year &gt;= 2021){
-        weeks &lt;- 1:18
-      }
-      for (week in weeks) {
-        df &lt;- fp_stats(pos, season = year, start_week = week, end_week = week, scoring = &quot;ppr&quot;)
-        write.table(df, str_glue(&quot;data/all_stats/all_stats.csv&quot;), append=TRUE, sep = &#39;,&#39;, quote = FALSE, col.names = FALSE, row.names = FALSE)
-      }
-    }
-  }
-}
-
-years = list(&#39;2016&#39;, &#39;2017&#39;, &#39;2018&#39;, &#39;2019&#39;, &#39;2020&#39;, &#39;2021&#39;, &#39;2022&#39;)
-
-get_data(years)
-library(readr)
-all_stats &lt;- read_csv(&quot;data/all_stats/all_stats.csv&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTmV3IG5hbWVzOldhcm5pbmc6IE9uZSBvciBtb3JlIHBhcnNpbmcgaXNzdWVzLCBjYWxsIGBwcm9ibGVtcygpYCBvbiB5b3VyIGRhdGEgZnJhbWUgZm9yIGRldGFpbHMsIGUuZy46XG4gIGRhdCA8LSB2cm9vbSguLi4pXG4gIHByb2JsZW1zKGRhdClSb3dzOiA2NDM3NyBDb2x1bW5zOiAyNOKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCIsXCJcbmNociAgKDcpOiBBbmRyZXcgTHVjaywgUUIsIEZBLCBwcHIsIDAuLi4xOSwgMzUuNS4uLjIzLCAyLjIlXG5kYmwgKDE3KTogMjAxNiwgMS4uLjUsIDEuLi42LCAxLi4uOCwgMzEsIDQ3LCA2Ni4wLCAzODUsIDguMiwgNCwgMC4uLjE1LCAyLCAzLCAyMSwgMC4uLlxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
-<pre><code>New names:Warning: One or more parsing issues, call `problems()` on your data frame for details, e.g.:
-  dat &lt;- vroom(...)
-  problems(dat)Rows: 64377 Columns: 24── Column specification ───────────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr  (7): Andrew Luck, QB, FA, ppr, 0...19, 35.5...23, 2.2%
-dbl (17): 2016, 1...5, 1...6, 1...8, 31, 47, 66.0, 385, 8.2, 4, 0...15, 2, 3, 21, 0...
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVmlldyhhbGxfc3RhdHMpXG5cblxuXG5cbmBgYCJ9 -->
-<pre class="r"><code>View(all_stats)
+positions &lt;- list(&quot;QB&quot;, &quot;RB&quot;, &quot;WR&quot;, &quot;TE&quot;, &quot;K&quot;, &quot;DST&quot;)
+weeks &lt;- 1:17
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0X2RhdGEgPC0gZnVuY3Rpb24oeWVhcnMpIHtcbiAgZm9yICh5ZWFyIGluIHllYXJzKSB7XG4gICAgZm9yIChwb3MgaW4gcG9zaXRpb25zKSB7XG4gICAgICBpZiAoeWVhciA+PSAyMDIxKSB7XG4gICAgICAgIHdlZWtzIDwtIDE6MThcbiAgICAgIH1cbiAgICAgIGZvciAod2VlayBpbiB3ZWVrcykge1xuICAgICAgICBkZiA8LVxuICAgICAgICAgIGZwX3N0YXRzKFxuICAgICAgICAgICAgcG9zLFxuICAgICAgICAgICAgc2Vhc29uID0geWVhcixcbiAgICAgICAgICAgIHN0YXJ0X3dlZWsgPSB3ZWVrLFxuICAgICAgICAgICAgZW5kX3dlZWsgPSB3ZWVrLFxuICAgICAgICAgICAgc2NvcmluZyA9IFwicHByXCJcbiAgICAgICAgICApXG4gICAgICAgIGlmIChmaWxlLmV4aXN0cyhcImRhdGEvYWxsX3N0YXRzL2FsbF9zdGF0cy5jc3ZcIikpIHtcbiAgICAgICAgICBuYW1lcyA9IEZBTFNFXG4gICAgICAgIH1cbiAgICAgICAgZWxzZSB7XG4gICAgICAgICAgbmFtZXMgPSBUUlVFXG4gICAgICAgIH1cbiAgICAgICAgd3JpdGUudGFibGUoXG4gICAgICAgICAgZGYsXG4gICAgICAgICAgc3RyX2dsdWUoXCJkYXRhL2FsbF9zdGF0cy9hbGxfc3RhdHMuY3N2XCIpLFxuICAgICAgICAgIGFwcGVuZCA9IFRSVUUsXG4gICAgICAgICAgc2VwID0gJywnLFxuICAgICAgICAgIHF1b3RlID0gRkFMU0UsXG4gICAgICAgICAgY29sLm5hbWVzID0gbmFtZXMsXG4gICAgICAgICAgcm93Lm5hbWVzID0gRkFMU0VcbiAgICAgICAgKVxuICAgICAgfVxuICAgIH1cbiAgfVxufVxuYGBgIn0= -->
+<pre class="r"><code>get_data &lt;- function(years) {
+  for (year in years) {
+    for (pos in positions) {
+      if (year &gt;= 2021) {
+        weeks &lt;- 1:18
+      }
+      for (week in weeks) {
+        df &lt;-
+          fp_stats(
+            pos,
+            season = year,
+            start_week = week,
+            end_week = week,
+            scoring = &quot;ppr&quot;
+          )
+        if (file.exists(&quot;data/all_stats/all_stats.csv&quot;)) {
+          names = FALSE
+        }
+        else {
+          names = TRUE
+        }
+        write.table(
+          df,
+          str_glue(&quot;data/all_stats/all_stats.csv&quot;),
+          append = TRUE,
+          sep = &#39;,&#39;,
+          quote = FALSE,
+          col.names = names,
+          row.names = FALSE
+        )
+      }
+    }
+  }
+}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueWVhcnMgPSBsaXN0KCcyMDE2JywgJzIwMTcnLCAnMjAxOCcsICcyMDE5JywgJzIwMjAnLCAnMjAyMScsICcyMDIyJylcblxuZ2V0X2RhdGEoeWVhcnMpXG5gYGAifQ== -->
+<pre class="r"><code>years = list(&#39;2016&#39;, &#39;2017&#39;, &#39;2018&#39;, &#39;2019&#39;, &#39;2020&#39;, &#39;2021&#39;, &#39;2022&#39;)
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpgYGB7cn0KCmRmIDwtIGZwX3N0YXRzKCJRQiIsIHNlYXNvbiA9IDIwMTYsIHN0YXJ0X3dlZWsgPSAxLCBlbmRfd2VlayA9IDEpCgoKYGBgCgpgYGB7cn0KCmxpYnJhcnkoc3RyaW5ncikKCnggPC0gNApzdHJfZ2x1ZSgne3h9JykKCmBgYAoKCmBgYHtyfQoKIyBUaGlzIGNvZGUgaXMgdXNlZCB0byBleHRyYWN0IHRoZSB3ZWVrbHkgZGF0YSBmb3IgZWFjaCBuZmwgc2Vhc29uCiMgVGhlIG90aGVyIGRhdGEgaXMgZG93bmxvYWRlZCBtYW51YWxseQoKbGlicmFyeShmYW50YXN5cHJvcykKbGlicmFyeShzdHJpbmdyKQoKZ2V0X2RhdGEgPC0gZnVuY3Rpb24oeWVhcnMpIHsKICAKICBwb3NpdGlvbnMgPC0gbGlzdCgiUUIiLCAiUkIiLCAiV1IiLCAiVEUiLCAiSyIsICJEU1QiKQogIHdlZWtzIDwtIDE6MTcKICAgIAogIGZvciAoeWVhciBpbiB5ZWFycyl7CiAgICBmb3IgKHBvcyBpbiBwb3NpdGlvbnMpIHsKICAgICAgaWYgKHllYXIgPj0gMjAyMSl7CiAgICAgICAgd2Vla3MgPC0gMToxOAogICAgICB9CiAgICAgIGZvciAod2VlayBpbiB3ZWVrcykgewogICAgICAgIGRmIDwtIGZwX3N0YXRzKHBvcywgc2Vhc29uID0geWVhciwgc3RhcnRfd2VlayA9IHdlZWssIGVuZF93ZWVrID0gd2Vlaywgc2NvcmluZyA9ICJwcHIiKQogICAgICAgIHdyaXRlLnRhYmxlKGRmLCBzdHJfZ2x1ZSgiZGF0YS9hbGxfc3RhdHMvYWxsX3N0YXRzLmNzdiIpLCBhcHBlbmQ9VFJVRSwgc2VwID0gJywnLCBxdW90ZSA9IEZBTFNFLCBjb2wubmFtZXMgPSBGQUxTRSwgcm93Lm5hbWVzID0gRkFMU0UpCiAgICAgIH0KICAgIH0KICB9Cn0KCnllYXJzID0gbGlzdCgnMjAxNicsICcyMDE3JywgJzIwMTgnLCAnMjAxOScsICcyMDIwJywgJzIwMjEnLCAnMjAyMicpCgpnZXRfZGF0YSh5ZWFycykKCgoKCmBgYAoK</div>
+get_data(years)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogYXBwZW5kaW5nIGNvbHVtbiBuYW1lcyB0byBmaWxlXG4ifQ== -->
+<pre><code>Warning: appending column names to file</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpgYGB7cn0KCmRmIDwtIGZwX3N0YXRzKCJRQiIsIHNlYXNvbiA9IDIwMTYsIHN0YXJ0X3dlZWsgPSAxLCBlbmRfd2VlayA9IDEpCgoKYGBgCgpgYGB7cn0KCmxpYnJhcnkoc3RyaW5ncikKCnggPC0gNApzdHJfZ2x1ZSgne3h9JykKCmBgYAoKCmBgYHtyfQojIFRoaXMgY29kZSBpcyB1c2VkIHRvIGV4dHJhY3QgdGhlIHdlZWtseSBkYXRhIGZvciBlYWNoIG5mbCBzZWFzb24KIyBUaGUgb3RoZXIgZGF0YSBpcyBkb3dubG9hZGVkIG1hbnVhbGx5CgpsaWJyYXJ5KGZhbnRhc3lwcm9zKQpsaWJyYXJ5KHN0cmluZ3IpCiAgCnBvc2l0aW9ucyA8LSBsaXN0KCJRQiIsICJSQiIsICJXUiIsICJURSIsICJLIiwgIkRTVCIpCndlZWtzIDwtIDE6MTcKCmBgYAoKCmBgYHtyfQpnZXRfZGF0YSA8LSBmdW5jdGlvbih5ZWFycykgewogIGZvciAoeWVhciBpbiB5ZWFycykgewogICAgZm9yIChwb3MgaW4gcG9zaXRpb25zKSB7CiAgICAgIGlmICh5ZWFyID49IDIwMjEpIHsKICAgICAgICB3ZWVrcyA8LSAxOjE4CiAgICAgIH0KICAgICAgZm9yICh3ZWVrIGluIHdlZWtzKSB7CiAgICAgICAgZGYgPC0KICAgICAgICAgIGZwX3N0YXRzKAogICAgICAgICAgICBwb3MsCiAgICAgICAgICAgIHNlYXNvbiA9IHllYXIsCiAgICAgICAgICAgIHN0YXJ0X3dlZWsgPSB3ZWVrLAogICAgICAgICAgICBlbmRfd2VlayA9IHdlZWssCiAgICAgICAgICAgIHNjb3JpbmcgPSAicHByIgogICAgICAgICAgKQogICAgICAgIGlmIChmaWxlLmV4aXN0cygiZGF0YS9hbGxfc3RhdHMvYWxsX3N0YXRzLmNzdiIpKSB7CiAgICAgICAgICBuYW1lcyA9IEZBTFNFCiAgICAgICAgfQogICAgICAgIGVsc2UgewogICAgICAgICAgbmFtZXMgPSBUUlVFCiAgICAgICAgfQogICAgICAgIHdyaXRlLnRhYmxlKAogICAgICAgICAgZGYsCiAgICAgICAgICBzdHJfZ2x1ZSgiZGF0YS9hbGxfc3RhdHMvYWxsX3N0YXRzLmNzdiIpLAogICAgICAgICAgYXBwZW5kID0gVFJVRSwKICAgICAgICAgIHNlcCA9ICcsJywKICAgICAgICAgIHF1b3RlID0gRkFMU0UsCiAgICAgICAgICBjb2wubmFtZXMgPSBuYW1lcywKICAgICAgICAgIHJvdy5uYW1lcyA9IEZBTFNFCiAgICAgICAgKQogICAgICB9CiAgICB9CiAgfQp9CmBgYAoKCmBgYHtyfQp5ZWFycyA9IGxpc3QoJzIwMTYnLCAnMjAxNycsICcyMDE4JywgJzIwMTknLCAnMjAyMCcsICcyMDIxJywgJzIwMjInKQoKZ2V0X2RhdGEoeWVhcnMpCgoKCgpgYGAKCg==</div>
 
 
 

@@ -8,6 +8,7 @@ Created on Fri Dec 16 15:20:35 2022
 
 import pandas as pd
 import os
+import pickle
 
 # All data comes from FantasyPros execept the average draft position data
 # which comes from fantasyData
@@ -26,6 +27,9 @@ def read_data(folder):
         
 
 misc_df_dic = read_data('data/misc/')
+with open('misc_df_dic.pickle', 'wb') as handle:
+    pickle.dump(misc_df_dic, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 all_stats_df = pd.read_csv('data/all_stats/all_stats.csv')
+all_stats_df.to_pickle('all_stats_df.pickle')

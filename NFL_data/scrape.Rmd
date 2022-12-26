@@ -20,31 +20,57 @@ str_glue('{x}')
 
 
 ```{r}
-
 # This code is used to extract the weekly data for each nfl season
 # The other data is downloaded manually
 
 library(fantasypros)
 library(stringr)
-
-get_data <- function(years) {
   
-  positions <- list("QB", "RB", "WR", "TE", "K", "DST")
-  weeks <- 1:17
-    
-  for (year in years){
+positions <- list("QB", "RB", "WR", "TE", "K", "DST")
+weeks <- 1:17
+
+```
+
+
+```{r}
+get_data <- function(years) {
+  for (year in years) {
     for (pos in positions) {
-      if (year >= 2021){
+      if (year >= 2021) {
         weeks <- 1:18
       }
       for (week in weeks) {
-        df <- fp_stats(pos, season = year, start_week = week, end_week = week, scoring = "ppr")
-        write.table(df, str_glue("data/all_stats/all_stats.csv"), append=TRUE, sep = ',', quote = FALSE, col.names = FALSE, row.names = FALSE)
+        df <-
+          fp_stats(
+            pos,
+            season = year,
+            start_week = week,
+            end_week = week,
+            scoring = "ppr"
+          )
+        if (file.exists("data/all_stats/all_stats.csv")) {
+          names = FALSE
+        }
+        else {
+          names = TRUE
+        }
+        write.table(
+          df,
+          str_glue("data/all_stats/all_stats.csv"),
+          append = TRUE,
+          sep = ',',
+          quote = FALSE,
+          col.names = names,
+          row.names = FALSE
+        )
       }
     }
   }
 }
+```
 
+
+```{r}
 years = list('2016', '2017', '2018', '2019', '2020', '2021', '2022')
 
 get_data(years)
