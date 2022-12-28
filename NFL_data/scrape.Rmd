@@ -76,6 +76,8 @@ get_data <- function(years) {
 
 ```{r}
 
+years = list('2016', '2017', '2018', '2019', '2020', '2021', '2022')
+
 get_data(years)
 
 ```
@@ -83,10 +85,10 @@ get_data(years)
 ```{r}
 
 # get snap counts data
-get_snap_data <- function(years) {
+get_snap_data <- function(years, name) {
   for (year in years) {
     df <- fp_snap_counts(season = year)
-    if (file.exists("data/snap_data/snap_counts.csv")) {
+    if (file.exists(str_glue('data/snap_data/snap_counts_{name}.csv)'))){
       names = FALSE
     }
     else {
@@ -94,7 +96,7 @@ get_snap_data <- function(years) {
     }
     write.table(
       df,
-      str_glue("data/snap_data/snap_counts.csv"),
+      str_glue("data/snap_data/snap_counts_{name}.csv"),
       append = TRUE,
       sep = ',',
       quote = FALSE,
@@ -109,7 +111,13 @@ get_snap_data <- function(years) {
 
 ```{r}
 
-get_snap_data(years)
+years = list('2016', '2017', '2018', '2019', '2020')
+
+get_snap_data(years, name='16_20')
+
+years = list('2021', '2022')
+
+get_snap_data(years, name='21_22')
 
 ```
 
@@ -118,10 +126,10 @@ get_snap_data(years)
 ```{r}
 
 # get target counts data
-get_target_data <- function(years) {
+get_target_data <- function(years, name) {
   for (year in years) {
     df <- fp_targets(season = year)
-    if (file.exists("data/target_data/target_counts.csv")) {
+    if (file.exists(str_glue("data/target_data/target_counts_{name}.csv"))) {
       names = FALSE
     }
     else {
@@ -129,7 +137,7 @@ get_target_data <- function(years) {
     }
     write.table(
       df,
-      str_glue("data/target_data/target_counts.csv"),
+      str_glue("data/target_data/target_counts_{name}.csv"),
       append = TRUE,
       sep = ',',
       quote = FALSE,
@@ -144,7 +152,14 @@ get_target_data <- function(years) {
 
 ```{r}
 
-get_target_data(years)
+years = list('2016', '2017', '2018', '2019', '2020')
+
+get_target_data(years, name='16_20')
+
+years = list('2021', '2022')
+
+get_target_data(years, name='21_22')
+
 
 ```
 
