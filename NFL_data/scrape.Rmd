@@ -25,7 +25,9 @@ str_glue('{x}')
 
 library(fantasypros)
 library(stringr)
-  
+
+years = list('2016', '2017', '2018', '2019', '2020', '2021', '2022')
+
 positions <- list("QB", "RB", "WR", "TE", "K", "DST")
 weeks <- 1:17
 
@@ -33,6 +35,8 @@ weeks <- 1:17
 
 
 ```{r}
+
+# get all stats
 get_data <- function(years) {
   for (year in years) {
     for (pos in positions) {
@@ -71,12 +75,124 @@ get_data <- function(years) {
 
 
 ```{r}
-years = list('2016', '2017', '2018', '2019', '2020', '2021', '2022')
 
 get_data(years)
 
+```
 
+```{r}
 
+# get snap counts data
+get_snap_data <- function(years) {
+  for (year in years) {
+    df <- fp_snap_counts(season = year)
+    if (file.exists("data/snap_data/snap_counts.csv")) {
+      names = FALSE
+    }
+    else {
+      names = TRUE
+    }
+    write.table(
+      df,
+      str_glue("data/snap_data/snap_counts.csv"),
+      append = TRUE,
+      sep = ',',
+      quote = FALSE,
+      col.names = names,
+      row.names = FALSE
+    )
+  }
+}
 
 ```
+
+
+```{r}
+
+get_snap_data(years)
+
+```
+
+
+
+```{r}
+
+# get target counts data
+get_target_data <- function(years) {
+  for (year in years) {
+    df <- fp_targets(season = year)
+    if (file.exists("data/target_data/target_counts.csv")) {
+      names = FALSE
+    }
+    else {
+      names = TRUE
+    }
+    write.table(
+      df,
+      str_glue("data/target_data/target_counts.csv"),
+      append = TRUE,
+      sep = ',',
+      quote = FALSE,
+      col.names = names,
+      row.names = FALSE
+    )
+  }
+}
+
+```
+
+
+```{r}
+
+get_target_data(years)
+
+```
+
+
+
+
+```{r}
+
+# get team target counts data
+get_team_target_data <- function(years) {
+  for (year in years) {
+    if (year >= 2021) {
+        weeks <- 1:18
+    }
+      for (week in weeks) {
+        df <-
+          fp_team_targets(
+            season = year,
+            start_week = week,
+            end_week = week
+          )
+        if (file.exists("data/team_target_data/team_target_counts.csv")) {
+          names = FALSE
+        }
+        else {
+          names = TRUE
+        }
+        write.table(
+          df,
+          str_glue("data/team_target_data/team_target_counts.csv"),
+          append = TRUE,
+          sep = ',',
+          quote = FALSE,
+          col.names = names,
+          row.names = FALSE
+        )
+    }
+  }
+}
+
+```
+
+
+```{r}
+
+get_team_target_data(years)
+
+```
+
+
 

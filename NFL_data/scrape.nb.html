@@ -1813,7 +1813,7 @@ str_glue(&#39;{x}&#39;)</code></pre>
 &lt;!-- rnb-chunk-begin --&gt;
 
 
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUaGlzIGNvZGUgaXMgdXNlZCB0byBleHRyYWN0IHRoZSB3ZWVrbHkgZGF0YSBmb3IgZWFjaCBuZmwgc2Vhc29uXG4jIFRoZSBvdGhlciBkYXRhIGlzIGRvd25sb2FkZWQgbWFudWFsbHlcblxubGlicmFyeShmYW50YXN5cHJvcylcbmxpYnJhcnkoc3RyaW5ncilcbiAgXG5wb3NpdGlvbnMgPC0gbGlzdChcIlFCXCIsIFwiUkJcIiwgXCJXUlwiLCBcIlRFXCIsIFwiS1wiLCBcIkRTVFwiKVxud2Vla3MgPC0gMToxN1xuXG5gYGAifQ== --&gt;
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUaGlzIGNvZGUgaXMgdXNlZCB0byBleHRyYWN0IHRoZSB3ZWVrbHkgZGF0YSBmb3IgZWFjaCBuZmwgc2Vhc29uXG4jIFRoZSBvdGhlciBkYXRhIGlzIGRvd25sb2FkZWQgbWFudWFsbHlcblxubGlicmFyeShmYW50YXN5cHJvcylcbmxpYnJhcnkoc3RyaW5ncilcblxueWVhcnMgPSBsaXN0KCcyMDE2JywgJzIwMTcnLCAnMjAxOCcsICcyMDE5JywgJzIwMjAnLCAnMjAyMScsICcyMDIyJylcblxucG9zaXRpb25zIDwtIGxpc3QoXCJRQlwiLCBcIlJCXCIsIFwiV1JcIiwgXCJURVwiLCBcIktcIiwgXCJEU1RcIilcbndlZWtzIDwtIDE6MTdcblxuYGBgIn0= --&gt;
 
 ```r
 # This code is used to extract the weekly data for each nfl season
@@ -1821,7 +1821,9 @@ str_glue(&#39;{x}&#39;)</code></pre>
 
 library(fantasypros)
 library(stringr)
-  
+
+years = list(&#39;2016&#39;, &#39;2017&#39;, &#39;2018&#39;, &#39;2019&#39;, &#39;2020&#39;, &#39;2021&#39;, &#39;2022&#39;)
+
 positions &lt;- list(&quot;QB&quot;, &quot;RB&quot;, &quot;WR&quot;, &quot;TE&quot;, &quot;K&quot;, &quot;DST&quot;)
 weeks &lt;- 1:17
 </code></pre>
@@ -1881,8 +1883,138 @@ get_data(years)</code></pre>
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIGdldCBzbmFwIGNvdW50cyBkYXRhXG5nZXRfc25hcF9kYXRhIDwtIGZ1bmN0aW9uKHllYXJzKSB7XG4gIGZvciAoeWVhciBpbiB5ZWFycykge1xuICAgIGRmIDwtIGZwX3NuYXBfY291bnRzKHNlYXNvbiA9IHllYXIpXG4gICAgaWYgKGZpbGUuZXhpc3RzKFwiZGF0YS9zbmFwX2RhdGEvc25hcF9jb3VudHMuY3N2XCIpKSB7XG4gICAgICBuYW1lcyA9IEZBTFNFXG4gICAgfVxuICAgIGVsc2Uge1xuICAgICAgbmFtZXMgPSBUUlVFXG4gICAgfVxuICAgIHdyaXRlLnRhYmxlKFxuICAgICAgZGYsXG4gICAgICBzdHJfZ2x1ZShcImRhdGEvc25hcF9kYXRhL3NuYXBfY291bnRzLmNzdlwiKSxcbiAgICAgIGFwcGVuZCA9IFRSVUUsXG4gICAgICBzZXAgPSAnLCcsXG4gICAgICBxdW90ZSA9IEZBTFNFLFxuICAgICAgY29sLm5hbWVzID0gbmFtZXMsXG4gICAgICByb3cubmFtZXMgPSBGQUxTRVxuICAgIClcbiAgfVxufVxuXG5gYGAifQ== -->
+<pre class="r"><code>
+# get snap counts data
+get_snap_data &lt;- function(years) {
+  for (year in years) {
+    df &lt;- fp_snap_counts(season = year)
+    if (file.exists(&quot;data/snap_data/snap_counts.csv&quot;)) {
+      names = FALSE
+    }
+    else {
+      names = TRUE
+    }
+    write.table(
+      df,
+      str_glue(&quot;data/snap_data/snap_counts.csv&quot;),
+      append = TRUE,
+      sep = &#39;,&#39;,
+      quote = FALSE,
+      col.names = names,
+      row.names = FALSE
+    )
+  }
+}
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5nZXRfc25hcF9kYXRhKHllYXJzKVxuYGBgIn0= -->
+<pre class="r"><code>
+get_snap_data(years)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogYXBwZW5kaW5nIGNvbHVtbiBuYW1lcyB0byBmaWxlXG4ifQ== -->
+<pre><code>Warning: appending column names to file</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIGdldCB0YXJnZXQgY291bnRzIGRhdGFcbmdldF90YXJnZXRfZGF0YSA8LSBmdW5jdGlvbih5ZWFycykge1xuICBmb3IgKHllYXIgaW4geWVhcnMpIHtcbiAgICBkZiA8LSBmcF90YXJnZXRzKHNlYXNvbiA9IHllYXIpXG4gICAgaWYgKGZpbGUuZXhpc3RzKFwiZGF0YS90YXJnZXRfZGF0YS90YXJnZXRfY291bnRzLmNzdlwiKSkge1xuICAgICAgbmFtZXMgPSBGQUxTRVxuICAgIH1cbiAgICBlbHNlIHtcbiAgICAgIG5hbWVzID0gVFJVRVxuICAgIH1cbiAgICB3cml0ZS50YWJsZShcbiAgICAgIGRmLFxuICAgICAgc3RyX2dsdWUoXCJkYXRhL3RhcmdldF9kYXRhL3RhcmdldF9jb3VudHMuY3N2XCIpLFxuICAgICAgYXBwZW5kID0gVFJVRSxcbiAgICAgIHNlcCA9ICcsJyxcbiAgICAgIHF1b3RlID0gRkFMU0UsXG4gICAgICBjb2wubmFtZXMgPSBuYW1lcyxcbiAgICAgIHJvdy5uYW1lcyA9IEZBTFNFXG4gICAgKVxuICB9XG59XG5cbmBgYCJ9 -->
+<pre class="r"><code>
+# get target counts data
+get_target_data &lt;- function(years) {
+  for (year in years) {
+    df &lt;- fp_targets(season = year)
+    if (file.exists(&quot;data/target_data/target_counts.csv&quot;)) {
+      names = FALSE
+    }
+    else {
+      names = TRUE
+    }
+    write.table(
+      df,
+      str_glue(&quot;data/target_data/target_counts.csv&quot;),
+      append = TRUE,
+      sep = &#39;,&#39;,
+      quote = FALSE,
+      col.names = names,
+      row.names = FALSE
+    )
+  }
+}
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5nZXRfdGFyZ2V0X2RhdGEoeWVhcnMpXG5gYGAifQ== -->
+<pre class="r"><code>
+get_target_data(years)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogYXBwZW5kaW5nIGNvbHVtbiBuYW1lcyB0byBmaWxlXG4ifQ== -->
+<pre><code>Warning: appending column names to file</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIGdldCB0ZWFtIHRhcmdldCBjb3VudHMgZGF0YVxuZ2V0X3RlYW1fdGFyZ2V0X2RhdGEgPC0gZnVuY3Rpb24oeWVhcnMpIHtcbiAgZm9yICh5ZWFyIGluIHllYXJzKSB7XG4gICAgaWYgKHllYXIgPj0gMjAyMSkge1xuICAgICAgICB3ZWVrcyA8LSAxOjE4XG4gICAgfVxuICAgICAgZm9yICh3ZWVrIGluIHdlZWtzKSB7XG4gICAgICAgIGRmIDwtXG4gICAgICAgICAgZnBfdGVhbV90YXJnZXRzKFxuICAgICAgICAgICAgc2Vhc29uID0geWVhcixcbiAgICAgICAgICAgIHN0YXJ0X3dlZWsgPSB3ZWVrLFxuICAgICAgICAgICAgZW5kX3dlZWsgPSB3ZWVrXG4gICAgICAgICAgKVxuICAgICAgICBpZiAoZmlsZS5leGlzdHMoXCJkYXRhL3RlYW1fdGFyZ2V0X2RhdGEvdGVhbV90YXJnZXRfY291bnRzLmNzdlwiKSkge1xuICAgICAgICAgIG5hbWVzID0gRkFMU0VcbiAgICAgICAgfVxuICAgICAgICBlbHNlIHtcbiAgICAgICAgICBuYW1lcyA9IFRSVUVcbiAgICAgICAgfVxuICAgICAgICB3cml0ZS50YWJsZShcbiAgICAgICAgICBkZixcbiAgICAgICAgICBzdHJfZ2x1ZShcImRhdGEvdGVhbV90YXJnZXRfZGF0YS90ZWFtX3RhcmdldF9jb3VudHMuY3N2XCIpLFxuICAgICAgICAgIGFwcGVuZCA9IFRSVUUsXG4gICAgICAgICAgc2VwID0gJywnLFxuICAgICAgICAgIHF1b3RlID0gRkFMU0UsXG4gICAgICAgICAgY29sLm5hbWVzID0gbmFtZXMsXG4gICAgICAgICAgcm93Lm5hbWVzID0gRkFMU0VcbiAgICAgICAgKVxuICAgIH1cbiAgfVxufVxuXG5gYGAifQ== -->
+<pre class="r"><code>
+# get team target counts data
+get_team_target_data &lt;- function(years) {
+  for (year in years) {
+    if (year &gt;= 2021) {
+        weeks &lt;- 1:18
+    }
+      for (week in weeks) {
+        df &lt;-
+          fp_team_targets(
+            season = year,
+            start_week = week,
+            end_week = week
+          )
+        if (file.exists(&quot;data/team_target_data/team_target_counts.csv&quot;)) {
+          names = FALSE
+        }
+        else {
+          names = TRUE
+        }
+        write.table(
+          df,
+          str_glue(&quot;data/team_target_data/team_target_counts.csv&quot;),
+          append = TRUE,
+          sep = &#39;,&#39;,
+          quote = FALSE,
+          col.names = names,
+          row.names = FALSE
+        )
+    }
+  }
+}
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5nZXRfdGVhbV90YXJnZXRfZGF0YSh5ZWFycylcbmBgYCJ9 -->
+<pre class="r"><code>
+get_team_target_data(years)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogYXBwZW5kaW5nIGNvbHVtbiBuYW1lcyB0byBmaWxlXG4ifQ== -->
+<pre><code>Warning: appending column names to file</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpgYGB7cn0KCmRmIDwtIGZwX3N0YXRzKCJRQiIsIHNlYXNvbiA9IDIwMTYsIHN0YXJ0X3dlZWsgPSAxLCBlbmRfd2VlayA9IDEpCgoKYGBgCgpgYGB7cn0KCmxpYnJhcnkoc3RyaW5ncikKCnggPC0gNApzdHJfZ2x1ZSgne3h9JykKCmBgYAoKCmBgYHtyfQojIFRoaXMgY29kZSBpcyB1c2VkIHRvIGV4dHJhY3QgdGhlIHdlZWtseSBkYXRhIGZvciBlYWNoIG5mbCBzZWFzb24KIyBUaGUgb3RoZXIgZGF0YSBpcyBkb3dubG9hZGVkIG1hbnVhbGx5CgpsaWJyYXJ5KGZhbnRhc3lwcm9zKQpsaWJyYXJ5KHN0cmluZ3IpCiAgCnBvc2l0aW9ucyA8LSBsaXN0KCJRQiIsICJSQiIsICJXUiIsICJURSIsICJLIiwgIkRTVCIpCndlZWtzIDwtIDE6MTcKCmBgYAoKCmBgYHtyfQpnZXRfZGF0YSA8LSBmdW5jdGlvbih5ZWFycykgewogIGZvciAoeWVhciBpbiB5ZWFycykgewogICAgZm9yIChwb3MgaW4gcG9zaXRpb25zKSB7CiAgICAgIGlmICh5ZWFyID49IDIwMjEpIHsKICAgICAgICB3ZWVrcyA8LSAxOjE4CiAgICAgIH0KICAgICAgZm9yICh3ZWVrIGluIHdlZWtzKSB7CiAgICAgICAgZGYgPC0KICAgICAgICAgIGZwX3N0YXRzKAogICAgICAgICAgICBwb3MsCiAgICAgICAgICAgIHNlYXNvbiA9IHllYXIsCiAgICAgICAgICAgIHN0YXJ0X3dlZWsgPSB3ZWVrLAogICAgICAgICAgICBlbmRfd2VlayA9IHdlZWssCiAgICAgICAgICAgIHNjb3JpbmcgPSAicHByIgogICAgICAgICAgKQogICAgICAgIGlmIChmaWxlLmV4aXN0cygiZGF0YS9hbGxfc3RhdHMvYWxsX3N0YXRzLmNzdiIpKSB7CiAgICAgICAgICBuYW1lcyA9IEZBTFNFCiAgICAgICAgfQogICAgICAgIGVsc2UgewogICAgICAgICAgbmFtZXMgPSBUUlVFCiAgICAgICAgfQogICAgICAgIHdyaXRlLnRhYmxlKAogICAgICAgICAgZGYsCiAgICAgICAgICBzdHJfZ2x1ZSgiZGF0YS9hbGxfc3RhdHMvYWxsX3N0YXRzLmNzdiIpLAogICAgICAgICAgYXBwZW5kID0gVFJVRSwKICAgICAgICAgIHNlcCA9ICcsJywKICAgICAgICAgIHF1b3RlID0gRkFMU0UsCiAgICAgICAgICBjb2wubmFtZXMgPSBuYW1lcywKICAgICAgICAgIHJvdy5uYW1lcyA9IEZBTFNFCiAgICAgICAgKQogICAgICB9CiAgICB9CiAgfQp9CmBgYAoKCmBgYHtyfQp5ZWFycyA9IGxpc3QoJzIwMTYnLCAnMjAxNycsICcyMDE4JywgJzIwMTknLCAnMjAyMCcsICcyMDIxJywgJzIwMjInKQoKZ2V0X2RhdGEoeWVhcnMpCgoKCgpgYGAKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpgYGB7cn0KCmRmIDwtIGZwX3N0YXRzKCJRQiIsIHNlYXNvbiA9IDIwMTYsIHN0YXJ0X3dlZWsgPSAxLCBlbmRfd2VlayA9IDEpCgoKYGBgCgpgYGB7cn0KCmxpYnJhcnkoc3RyaW5ncikKCnggPC0gNApzdHJfZ2x1ZSgne3h9JykKCmBgYAoKCmBgYHtyfQojIFRoaXMgY29kZSBpcyB1c2VkIHRvIGV4dHJhY3QgdGhlIHdlZWtseSBkYXRhIGZvciBlYWNoIG5mbCBzZWFzb24KIyBUaGUgb3RoZXIgZGF0YSBpcyBkb3dubG9hZGVkIG1hbnVhbGx5CgpsaWJyYXJ5KGZhbnRhc3lwcm9zKQpsaWJyYXJ5KHN0cmluZ3IpCgp5ZWFycyA9IGxpc3QoJzIwMTYnLCAnMjAxNycsICcyMDE4JywgJzIwMTknLCAnMjAyMCcsICcyMDIxJywgJzIwMjInKQoKcG9zaXRpb25zIDwtIGxpc3QoIlFCIiwgIlJCIiwgIldSIiwgIlRFIiwgIksiLCAiRFNUIikKd2Vla3MgPC0gMToxNwoKYGBgCgoKYGBge3J9CgojIGdldCBhbGwgc3RhdHMKZ2V0X2RhdGEgPC0gZnVuY3Rpb24oeWVhcnMpIHsKICBmb3IgKHllYXIgaW4geWVhcnMpIHsKICAgIGZvciAocG9zIGluIHBvc2l0aW9ucykgewogICAgICBpZiAoeWVhciA+PSAyMDIxKSB7CiAgICAgICAgd2Vla3MgPC0gMToxOAogICAgICB9CiAgICAgIGZvciAod2VlayBpbiB3ZWVrcykgewogICAgICAgIGRmIDwtCiAgICAgICAgICBmcF9zdGF0cygKICAgICAgICAgICAgcG9zLAogICAgICAgICAgICBzZWFzb24gPSB5ZWFyLAogICAgICAgICAgICBzdGFydF93ZWVrID0gd2VlaywKICAgICAgICAgICAgZW5kX3dlZWsgPSB3ZWVrLAogICAgICAgICAgICBzY29yaW5nID0gInBwciIKICAgICAgICAgICkKICAgICAgICBpZiAoZmlsZS5leGlzdHMoImRhdGEvYWxsX3N0YXRzL2FsbF9zdGF0cy5jc3YiKSkgewogICAgICAgICAgbmFtZXMgPSBGQUxTRQogICAgICAgIH0KICAgICAgICBlbHNlIHsKICAgICAgICAgIG5hbWVzID0gVFJVRQogICAgICAgIH0KICAgICAgICB3cml0ZS50YWJsZSgKICAgICAgICAgIGRmLAogICAgICAgICAgc3RyX2dsdWUoImRhdGEvYWxsX3N0YXRzL2FsbF9zdGF0cy5jc3YiKSwKICAgICAgICAgIGFwcGVuZCA9IFRSVUUsCiAgICAgICAgICBzZXAgPSAnLCcsCiAgICAgICAgICBxdW90ZSA9IEZBTFNFLAogICAgICAgICAgY29sLm5hbWVzID0gbmFtZXMsCiAgICAgICAgICByb3cubmFtZXMgPSBGQUxTRQogICAgICAgICkKICAgICAgfQogICAgfQogIH0KfQpgYGAKCgpgYGB7cn0KCmdldF9kYXRhKHllYXJzKQoKYGBgCgpgYGB7cn0KCiMgZ2V0IHNuYXAgY291bnRzIGRhdGEKZ2V0X3NuYXBfZGF0YSA8LSBmdW5jdGlvbih5ZWFycykgewogIGZvciAoeWVhciBpbiB5ZWFycykgewogICAgZGYgPC0gZnBfc25hcF9jb3VudHMoc2Vhc29uID0geWVhcikKICAgIGlmIChmaWxlLmV4aXN0cygiZGF0YS9zbmFwX2RhdGEvc25hcF9jb3VudHMuY3N2IikpIHsKICAgICAgbmFtZXMgPSBGQUxTRQogICAgfQogICAgZWxzZSB7CiAgICAgIG5hbWVzID0gVFJVRQogICAgfQogICAgd3JpdGUudGFibGUoCiAgICAgIGRmLAogICAgICBzdHJfZ2x1ZSgiZGF0YS9zbmFwX2RhdGEvc25hcF9jb3VudHMuY3N2IiksCiAgICAgIGFwcGVuZCA9IFRSVUUsCiAgICAgIHNlcCA9ICcsJywKICAgICAgcXVvdGUgPSBGQUxTRSwKICAgICAgY29sLm5hbWVzID0gbmFtZXMsCiAgICAgIHJvdy5uYW1lcyA9IEZBTFNFCiAgICApCiAgfQp9CgpgYGAKCgpgYGB7cn0KCmdldF9zbmFwX2RhdGEoeWVhcnMpCgpgYGAKCgoKYGBge3J9CgojIGdldCB0YXJnZXQgY291bnRzIGRhdGEKZ2V0X3RhcmdldF9kYXRhIDwtIGZ1bmN0aW9uKHllYXJzKSB7CiAgZm9yICh5ZWFyIGluIHllYXJzKSB7CiAgICBkZiA8LSBmcF90YXJnZXRzKHNlYXNvbiA9IHllYXIpCiAgICBpZiAoZmlsZS5leGlzdHMoImRhdGEvdGFyZ2V0X2RhdGEvdGFyZ2V0X2NvdW50cy5jc3YiKSkgewogICAgICBuYW1lcyA9IEZBTFNFCiAgICB9CiAgICBlbHNlIHsKICAgICAgbmFtZXMgPSBUUlVFCiAgICB9CiAgICB3cml0ZS50YWJsZSgKICAgICAgZGYsCiAgICAgIHN0cl9nbHVlKCJkYXRhL3RhcmdldF9kYXRhL3RhcmdldF9jb3VudHMuY3N2IiksCiAgICAgIGFwcGVuZCA9IFRSVUUsCiAgICAgIHNlcCA9ICcsJywKICAgICAgcXVvdGUgPSBGQUxTRSwKICAgICAgY29sLm5hbWVzID0gbmFtZXMsCiAgICAgIHJvdy5uYW1lcyA9IEZBTFNFCiAgICApCiAgfQp9CgpgYGAKCgpgYGB7cn0KCmdldF90YXJnZXRfZGF0YSh5ZWFycykKCmBgYAoKCgoKYGBge3J9CgojIGdldCB0ZWFtIHRhcmdldCBjb3VudHMgZGF0YQpnZXRfdGVhbV90YXJnZXRfZGF0YSA8LSBmdW5jdGlvbih5ZWFycykgewogIGZvciAoeWVhciBpbiB5ZWFycykgewogICAgaWYgKHllYXIgPj0gMjAyMSkgewogICAgICAgIHdlZWtzIDwtIDE6MTgKICAgIH0KICAgICAgZm9yICh3ZWVrIGluIHdlZWtzKSB7CiAgICAgICAgZGYgPC0KICAgICAgICAgIGZwX3RlYW1fdGFyZ2V0cygKICAgICAgICAgICAgc2Vhc29uID0geWVhciwKICAgICAgICAgICAgc3RhcnRfd2VlayA9IHdlZWssCiAgICAgICAgICAgIGVuZF93ZWVrID0gd2VlawogICAgICAgICAgKQogICAgICAgIGlmIChmaWxlLmV4aXN0cygiZGF0YS90ZWFtX3RhcmdldF9kYXRhL3RlYW1fdGFyZ2V0X2NvdW50cy5jc3YiKSkgewogICAgICAgICAgbmFtZXMgPSBGQUxTRQogICAgICAgIH0KICAgICAgICBlbHNlIHsKICAgICAgICAgIG5hbWVzID0gVFJVRQogICAgICAgIH0KICAgICAgICB3cml0ZS50YWJsZSgKICAgICAgICAgIGRmLAogICAgICAgICAgc3RyX2dsdWUoImRhdGEvdGVhbV90YXJnZXRfZGF0YS90ZWFtX3RhcmdldF9jb3VudHMuY3N2IiksCiAgICAgICAgICBhcHBlbmQgPSBUUlVFLAogICAgICAgICAgc2VwID0gJywnLAogICAgICAgICAgcXVvdGUgPSBGQUxTRSwKICAgICAgICAgIGNvbC5uYW1lcyA9IG5hbWVzLAogICAgICAgICAgcm93Lm5hbWVzID0gRkFMU0UKICAgICAgICApCiAgICB9CiAgfQp9CgpgYGAKCgpgYGB7cn0KCmdldF90ZWFtX3RhcmdldF9kYXRhKHllYXJzKQoKYGBgCgoKCg==</div>
 
 
 
