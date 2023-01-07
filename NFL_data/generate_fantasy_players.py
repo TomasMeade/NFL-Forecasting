@@ -2,7 +2,7 @@
 # Generate proprietary fantasy players drafted in 2022 league. 
 
 # API pulled from https://github.com/cwendt94/espn-api
-from espnapi.espn_api.football import League
+from espn_api.football import League
 import pandas as pd
 
 league_id = 829963546 #Example: https://fantasy.espn.com/football/team?leagueId=829963546&seasonId=2022&teamId=1&fromTeamId=1
