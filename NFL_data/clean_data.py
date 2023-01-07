@@ -98,4 +98,5 @@ all_players_df = all_player_snapshots(all_stats_df)
 
 
 # pickle file is too large to push to github
-# all_players_df.to_pickle('all_players_df.pickle')
+# takes approx 5 min
+all_players_df.to_pickle('all_players_df.pickle')
