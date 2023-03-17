@@ -20,6 +20,7 @@ all_stats_df.to_pickle('all_stats_df.pickle')
 # read snap counts
 snap_count_16_20_df = pd.read_csv('data/snap_data/snap_counts_16_20.csv')
 snap_count_21_22_df = pd.read_csv('data/snap_data/snap_counts_21_22.csv')
+all_stats_df.to_pickle('all_stats_df.pickle')
 
 # read target counts
 target_count_16_20_df = pd.read_csv('data/target_data/target_counts_16_20.csv')
