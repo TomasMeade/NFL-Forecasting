@@ -15,12 +15,10 @@ from pathlib import Path
 
 # read all statistics
 all_stats_df = pd.read_csv('data/all_stats/all_stats.csv')
-all_stats_df.to_pickle('all_stats_df.pickle')
 
 # read snap counts
 snap_count_16_20_df = pd.read_csv('data/snap_data/snap_counts_16_20.csv')
 snap_count_21_22_df = pd.read_csv('data/snap_data/snap_counts_21_22.csv')
-all_stats_df.to_pickle('all_stats_df.pickle')
 
 # read target counts
 target_count_16_20_df = pd.read_csv('data/target_data/target_counts_16_20.csv')
@@ -60,4 +58,12 @@ ppr_adp_df = pd.concat(points_dfs, ignore_index=True)
 
 
 
-# need to get season schedule data to be able to use points allowed data
+
+# read in season schedule data
+import nfl_data_py as nfl
+
+years = [2016, 2017, 2018, 2019, 2020, 2021, 2022]
+schedule = nfl.import_schedules(years)
+
+
+
